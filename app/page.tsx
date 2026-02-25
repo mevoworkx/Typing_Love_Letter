@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { lines } from "./data";
 
 const QUESTION = "Password (No Cheating): Happiest Day Of My Life - The Day We Talked Again (mm/dd/yyyy)";
@@ -218,6 +219,18 @@ function Home() {
 export default function App() {
   const [userInput, setUserInput] = useState("");
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (userInput.toLowerCase() === CORRECT_ANSWER.toLowerCase()) {
+      try { localStorage.setItem("authenticated", "true"); } catch (e) {}
+    }
+  }, [userInput]);
+
+  const handleClear = () => {
+    setUserInput("");
+    try { localStorage.removeItem("authenticated"); } catch (e) {}
+  };
+
   // deal with user input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -243,6 +256,17 @@ export default function App() {
           value={userInput}
           onChange={handleInputChange} 
         />
+        <div className="mt-4 flex justify-between items-center">
+          <button
+            onClick={handleClear}
+            className="px-4 py-2 bg-gray-500 rounded text-white"
+          >
+            Clear
+          </button>
+          <Link href="/letter" className="px-4 py-2 bg-rose-600 rounded text-white">
+            Open Letter
+          </Link>
+        </div>
       </div>
     </div>
   );

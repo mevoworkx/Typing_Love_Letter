@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "✨ 3months, WOW! ✨",
+  title: "✨ 2months, WOW! ✨",
   description: "A letter for my dearest, Mitz. Happy 3 months to us! <3",
 };
 
